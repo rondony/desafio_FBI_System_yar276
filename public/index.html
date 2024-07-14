@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author" content="Yonny Rondón">
+    
+    <title>FBI System</title>
+
+    <link rel="shortcut icon"
+        href="https://ih1.redbubble.net/image.5042876570.7275/bg,f8f8f8-flat,750x,075,f-pad,750x1000,f8f8f8.jpg"
+        type="image/x-icon">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+
+    <link rel="stylesheet" href="https://e1.pxfuel.com/desktop-wallpaper/968/502/desktop-wallpaper-fbi-anti.jpg">
+
+</head>
+
+<body>
+
+    </div>
+    <h1>🕵🏻 FBI System 🕵🏻</h1>
+    <div class="card bg-dark text-center">
+        <div class="card-body">
+            <form id="formLogin">
+                <h1>&#128372;&#128372;&#128372;</h1>
+                <h5 class="card-title text-center">Enter your credentials</h5>
+                <div class="row d-flex align-items-center mb-1">
+                    <div class="col-12">Email:</div>
+                    <div class="col-7 m-auto"><input type="text" id="email" name="email" class="form-control" required>
+                    </div>
+                </div>
+                <div class="row d-flex align-items-center">
+                    <div class="col-12">Password: 🔑🗝️🔑</div>
+                    <div class="col-7 m-auto"><input type="password" id="password" name="password" class="form-control"
+                            required></div>
+                </div>
+                <button class="btn bg-light my-3">get into 🕵🏻</button>
+            </form>
+        </div>
+    </div>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: rgb(3, 0, 24);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            height: 60vh;
+        }
+    </style>
+
+    <script>
+        let formLogin = document.getElementById("formLogin");
+
+        formLogin.addEventListener("submit", async (event) => {
+            try {
+                event.preventDefault();
+
+                const myHeaders = new Headers();
+                myHeaders.append("Content-Type", "application/json");
+
+                let raw = JSON.stringify({
+                    email: document.getElementById("email").value,
+                    password: document.getElementById("password").value,
+                });
+
+                let response = await fetch("/login", {
+                    method: "POST",
+                    body: raw,
+                    headers: myHeaders,
+                });
+
+                let data = await response.json();
+
+                alert(data.message);
+
+                if (response.status == 200) {
+                    let token = data.token;
+                    sessionStorage.setItem("token", token);
+                    window.location.href = "/privada?token=" + token;
+                }
+
+            } catch (error) {
+                alert("Ha ocurrido un error al intentar iniciar sesión.")
+            }
+        });
+    </script>
+
+</body>
+
+</html>
